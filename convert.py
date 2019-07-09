@@ -1,0 +1,47 @@
+import argparse
+import numpy as np
+
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('--file', type=str,
+                    help='nel-file for converting')
+parser.add_argument('--out_dir', type=str,
+                    help='sum the integers (default: find the max)')
+file_nel = parser.parse_args().file
+
+
+data_nel = open(file_nel, 'r')
+graph_size = 0
+graph = 0
+flag_create_matrix = True
+
+data_graph = []
+labels_graph = []
+
+s = set()
+
+for line in data_nel:
+    split_line = line.split()
+
+    if len(split_line) == 0:
+        graph_size = 0
+        flag_create_matrix = True
+        continue
+
+    flag_nel = split_line[0]
+
+    if flag_nel == 'n':
+        graph_size += 1
+
+    if flag_nel == 'e':
+        if flag_create_matrix:
+            graph = np.zeros((graph_size, graph_size))
+            flag_create_matrix = False
+        graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = np.float64(split_line[3])
+
+    if flag_nel == 'x':
+        data_graph.append(graph)
+        labels_graph.append(split_line[1])
+        s.add(split_line[1])
+print(len(data_graph))
+print(len(labels_graph))
+print(s)
