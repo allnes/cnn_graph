@@ -2,16 +2,13 @@ import argparse
 import numpy as np
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--file', type=str,
-                    help='nel-file for converting')
 parser.add_argument('--type', type=str,
                     help='nel-file for converting')
-file_nel = parser.parse_args().file
 type_dataset = parser.parse_args().type
 
 if type_dataset == "twitter":
 
-    data_nel = open(file_nel, 'r')
+    data_nel = open("new_data/TWITTER-Real-Graph-Partial.nel", 'r')
     graph_size = 0
     graph = 0
     flag_create_matrix = True
