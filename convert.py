@@ -48,3 +48,6 @@ if type_dataset == "twitter":
     print(len(curr_data[0]))
     print(len(curr_data[1]))
     print(curr_data[2])
+
+if type_dataset == "dblp":
+    print("Not implemented")
