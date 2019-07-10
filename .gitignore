@@ -13,3 +13,4 @@ summaries/
 
 # Model parameters
 checkpoints/
+.idea/
