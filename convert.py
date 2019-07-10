@@ -1,9 +1,8 @@
 import argparse
 import numpy as np
 
-parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--type', type=str,
-                    help='nel-file for converting')
+parser = argparse.ArgumentParser(description='Convert data annotations')
+parser.add_argument('--type', type=str, help='file for converting')
 type_dataset = parser.parse_args().type
 
 
