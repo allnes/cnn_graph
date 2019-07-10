@@ -6,8 +6,8 @@ parser.add_argument('--type', type=str,
                     help='nel-file for converting')
 type_dataset = parser.parse_args().type
 
-if type_dataset == "twitter":
 
+def get_twitter_data_set():
     data_nel = open("new_data/TWITTER-Real-Graph-Partial.nel", 'r')
     graph_size = 0
     graph = 0
@@ -41,6 +41,11 @@ if type_dataset == "twitter":
             data_graph.append(graph)
             labels_graph.append(split_line[1])
             s.add(split_line[1])
-    print(len(data_graph))
-    print(len(labels_graph))
-    print(s)
+    return data_graph, labels_graph, s
+
+
+if type_dataset == "twitter":
+    curr_data = get_twitter_data_set()
+    print(len(curr_data[0]))
+    print(len(curr_data[1]))
+    print(curr_data[2])
