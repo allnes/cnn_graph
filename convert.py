@@ -6,7 +6,7 @@ parser.add_argument('--type', type=str, help='file for converting')
 type_dataset = parser.parse_args().type
 
 
-def get_twitter_data_set():
+def get_nel_data_set(dict = {}):
     data_nel = open("new_data/TWITTER-Real-Graph-Partial.nel", 'r')
     graph_size = 0
     graph = 0
@@ -34,7 +34,9 @@ def get_twitter_data_set():
             if flag_create_matrix:
                 graph = np.zeros((graph_size, graph_size))
                 flag_create_matrix = False
-            graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = np.float64(split_line[3])
+                graph[int(split_line[1]) - 1][int(split_line[2]) - 1] \
+                    = np.float64(split_line[3]) if not len(dict) else np.float64(dict[split_line[3]])
+
 
         if flag_nel == 'x':
             data_graph.append(graph)
@@ -44,7 +46,7 @@ def get_twitter_data_set():
 
 
 if type_dataset == "twitter":
-    curr_data = get_twitter_data_set()
+    curr_data = get_nel_data_set()
     print(len(curr_data[0]))
     print(len(curr_data[1]))
     print(curr_data[2])
