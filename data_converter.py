@@ -38,6 +38,7 @@ def get_twitter_data_set():
     return {"data": data_graph, "labels": labels_graph, "label_values": s}
 
 
+print("Twitter data:")
 curr_data_twitter = get_twitter_data_set()
 print(len(curr_data_twitter["data"]))
 print(len(curr_data_twitter["labels"]))
@@ -82,6 +83,7 @@ def get_dblp_data_set():
     return {"data": data_graph, "labels": labels_graph, "label_values": s}
 
 
+print("\nDBLP brain data:")
 curr_data_dblp = get_dblp_data_set()
 print(len(curr_data_dblp["data"]))
 print(len(curr_data_dblp["labels"]))
