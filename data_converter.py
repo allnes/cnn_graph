@@ -27,9 +27,9 @@ def get_twitter_data_set():
 
         if flag_nel == 'e':
             if flag_create_matrix:
-                graph = np.zeros((graph_size, graph_size))
+                graph = np.zeros((graph_size, graph_size)).astype(np.float32)
                 flag_create_matrix = False
-            graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = np.float64(split_line[3])
+            graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = np.float32(split_line[3])
 
         if flag_nel == 'x':
             data_graph.append(graph)
@@ -38,11 +38,12 @@ def get_twitter_data_set():
     return {"data": data_graph, "labels": labels_graph, "label_values": s}
 
 
-print("Twitter data:")
-curr_data_twitter = get_twitter_data_set()
-print(len(curr_data_twitter["data"]))
-print(len(curr_data_twitter["labels"]))
-print(curr_data_twitter["label_values"])
+def test_twitter_data_set():
+    print("Twitter data:")
+    curr_data_twitter = get_twitter_data_set()
+    print(len(curr_data_twitter["data"]))
+    print(len(curr_data_twitter["labels"]))
+    print(curr_data_twitter["label_values"])
 
 
 def get_dblp_data_set():
@@ -72,9 +73,9 @@ def get_dblp_data_set():
 
         if flag_nel == 'e':
             if flag_create_matrix:
-                graph = np.zeros((graph_size, graph_size))
+                graph = np.zeros((graph_size, graph_size)).astype(np.float32)
                 flag_create_matrix = False
-            graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = np.float64(dict_elem[split_line[3]])
+            graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = np.float32(dict_elem[split_line[3]])
 
         if flag_nel == 'x':
             data_graph.append(graph)
@@ -83,8 +84,9 @@ def get_dblp_data_set():
     return {"data": data_graph, "labels": labels_graph, "label_values": s}
 
 
-print("\nDBLP brain data:")
-curr_data_dblp = get_dblp_data_set()
-print(len(curr_data_dblp["data"]))
-print(len(curr_data_dblp["labels"]))
-print(curr_data_dblp["label_values"])
+def test_dblp_data_set():
+    print("\nDBLP brain data:")
+    curr_data_dblp = get_dblp_data_set()
+    print(len(curr_data_dblp["data"]))
+    print(len(curr_data_dblp["labels"]))
+    print(curr_data_dblp["label_values"])
