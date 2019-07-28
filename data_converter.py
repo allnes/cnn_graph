@@ -2,7 +2,7 @@ import numpy as np
 
 
 def get_twitter_data_set():
-    data_nel = open("new_data/TWITTER-Real-Graph-Partial.nel", 'r')
+    data_nel = open('new_data/TWITTER-Real-Graph-Partial.nel', 'r')
     graph_size = 0
     graph = 0
     flag_create_matrix = True
@@ -35,7 +35,20 @@ def get_twitter_data_set():
             data_graph.append(graph)
             labels_graph.append(split_line[1])
             s.add(split_line[1])
-    return {"data": data_graph, "labels": labels_graph, "label_values": s}
+
+    len_max = len(data_graph[0])
+    for matr_new in data_graph:
+        len_max = max(len_max, len(matr_new))
+
+    new_data_graph = np.ndarray((len(data_graph), 1))
+    for matr_2 in data_graph:
+        edit_size = len_max - len(matr_2)
+        new_data_graph = np.append(new_data_graph, np.pad(matr_2, ((0, edit_size), (0, edit_size)), mode='constant', constant_values=(0, 0)))
+
+    new_labels_graph = np.ndarray((len(data_graph), 1))
+    new_labels_graph = np.append(new_labels_graph, labels_graph)
+
+    return {"data": new_data_graph, "labels": new_labels_graph, "label_values": s}
 
 
 def test_twitter_data_set():
@@ -90,3 +103,9 @@ def test_dblp_data_set():
     print(len(curr_data_dblp["data"]))
     print(len(curr_data_dblp["labels"]))
     print(curr_data_dblp["label_values"])
+
+
+if __name__ == "__main__":
+    dataset = get_twitter_data_set()
+    for matr in dataset["data"]:
+        assert len(matr) == len(dataset["data"][0])
