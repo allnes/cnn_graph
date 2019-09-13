@@ -22,6 +22,8 @@ def get_twitter_data_set():
 
     s = set()
 
+    # max_elem = np.finfo(np.float32).min
+    # min_elem = np.finfo(np.float32).max
     for line in data_nel:
         split_line = line.split()
 
@@ -35,13 +37,23 @@ def get_twitter_data_set():
             if flag_create_matrix:
                 graph = np.zeros((len_max, len_max)).astype(np.float32)
                 flag_create_matrix = False
-            graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = np.float32(split_line[3]) * 1000
+            # max_elem = np.maximum(max_elem, np.float32(split_line[3]))
+            # min_elem = np.minimum(min_elem, np.float32(split_line[3]))
+            wght = np.float32(split_line[3]) * 1000
+            if 0.1 < wght < 2.25:
+                new_weight = 150
+            elif 2.25 <= wght < 4.5:
+                new_weight = 55
+            elif 4.5 <= wght < 6.75:
+                new_weight = 10
+            else:
+                new_weight = 100
+            graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = new_weight
 
         if flag_nel == 'x':
             data_graph.append(graph)
             labels_graph.append(split_line[1])
             s.add(split_line[1])
-
     return {"data": data_graph, "labels": labels_graph, "label_values": s}
 
 
@@ -55,7 +67,6 @@ def test_twitter_data_set():
 
 def get_dblp_data_set():
     data_nel = open("new_data/DBLP_v1.nel", 'r')
-    graph_size = 0
     graph = 0
     flag_create_matrix = True
 
