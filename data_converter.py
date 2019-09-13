@@ -35,7 +35,7 @@ def get_twitter_data_set():
             if flag_create_matrix:
                 graph = np.zeros((len_max, len_max)).astype(np.float32)
                 flag_create_matrix = False
-            graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = np.float32(split_line[3])
+            graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = np.float32(split_line[3]) * 1000
 
         if flag_nel == 'x':
             data_graph.append(graph)
@@ -59,9 +59,20 @@ def get_dblp_data_set():
     graph = 0
     flag_create_matrix = True
 
+    len_max = 0
+    for line in data_nel:
+        split_line = line.split()
+        if len(split_line) == 0:
+            continue
+        flag_nel = split_line[0]
+        if flag_nel == 'e':
+            len_max = max(len_max, int(split_line[1]), int(split_line[2]))
+    data_nel.close()
+
+    data_nel = open("new_data/DBLP_v1.nel", 'r')
     data_graph = []
     labels_graph = []
-    dict_elem = {'P2P': 1.0, 'P2W': 0.1, 'W2W': -1.0}
+    dict_elem = {'P2P': 10, 'P2W': 55, 'W2W': 100}
 
     s = set()
 
@@ -69,18 +80,14 @@ def get_dblp_data_set():
         split_line = line.split()
 
         if len(split_line) == 0:
-            graph_size = 0
             flag_create_matrix = True
             continue
 
         flag_nel = split_line[0]
 
-        if flag_nel == 'n':
-            graph_size += 1
-
         if flag_nel == 'e':
             if flag_create_matrix:
-                graph = np.zeros((graph_size, graph_size)).astype(np.float32)
+                graph = np.zeros((len_max, len_max)).astype(np.float32)
                 flag_create_matrix = False
             graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = np.float32(dict_elem[split_line[3]])
 
@@ -104,3 +111,5 @@ if __name__ == "__main__":
     print("start check")
     for matr in dataset["data"]:
         assert len(matr) == len(dataset["data"][0])
+    test_twitter_data_set()
+    test_dblp_data_set()
