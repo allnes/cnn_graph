@@ -39,16 +39,18 @@ def get_twitter_data_set():
                 flag_create_matrix = False
             # max_elem = np.maximum(max_elem, np.float32(split_line[3]))
             # min_elem = np.minimum(min_elem, np.float32(split_line[3]))
-            wght = np.float32(split_line[3]) * 1000
-            if 0.1 < wght < 2.25:
-                new_weight = 150
-            elif 2.25 <= wght < 4.5:
-                new_weight = 55
-            elif 4.5 <= wght < 6.75:
-                new_weight = 10
-            else:
-                new_weight = 100
-            graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = new_weight
+
+            # wght = np.float32(split_line[3]) * 1000
+            # if 0 <= wght < 0.4:
+            #     new_weight = 10
+            # elif 0.4 <= wght < 1:
+            #     new_weight = 10000
+            # elif 1 <= wght < 2:
+            #     new_weight = 50000
+            # else:
+            #     new_weight = 100000
+            # graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = new_weight
+            graph[int(split_line[1]) - 1][int(split_line[2]) - 1] = (np.log(np.float32(split_line[3]))) ** 6
 
         if flag_nel == 'x':
             data_graph.append(graph)
