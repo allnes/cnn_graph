@@ -64,17 +64,12 @@ def adjacency(dist, idx):
     # Weights.
     sigma2 = (np.mean(dist[:, -1])**2).astype(np.float16)
     dist = np.exp(- dist**2 / sigma2).astype(np.float16)
-    print(type(dist[0][0]))
 
     # Weight matrix.
     I = np.arange(0, M).repeat(k).astype(np.float16)
-    print(type(I[0][0]))
     J = idx.reshape(M*k).astype(np.float16)
-    print(type(J[0][0]))
     V = dist.reshape(M*k).astype(np.float16)
-    print(type(V[0][0]))
     W = scipy.sparse.coo_matrix((V, (I, J)), shape=(M, M)).astype(np.float16)
-    print(type(W[0][0]))
 
     # No self-connections.
     W.setdiag(0)
@@ -86,7 +81,6 @@ def adjacency(dist, idx):
     assert W.nnz % 2 == 0
     assert np.abs(W - W.T).mean() < 1e-10
     assert type(W) is scipy.sparse.csr.csr_matrix
-    print(type(W[0][0]))
     return W
 
 
