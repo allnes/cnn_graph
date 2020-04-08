@@ -63,7 +63,6 @@ def adjacency(dist, idx):
 
     # Weights.
     sigma2 = (np.mean(dist[:, -1])**2).astype(np.float16)
-    print(type(sigma2[0][0]))
     dist = np.exp(- dist**2 / sigma2).astype(np.float16)
     print(type(dist[0][0]))
 
