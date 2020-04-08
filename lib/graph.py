@@ -22,18 +22,12 @@ def grid(m, dtype=np.float32):
 def distance_scipy_spatial(z, k=4, metric='euclidean'):
     """Compute exact pairwise distances."""
     z = z.astype(np.float16)
-    print(type(z[0][0]))
     d = scipy.spatial.distance.pdist(z, metric).astype(np.float16)
-    print(type(d))
     d = scipy.spatial.distance.squareform(d).astype(np.float16)
-    print(type(d[0][0]))
     # k-NN graph.
     idx = np.argsort(d)[:, 1:k+1].astype(np.float16)
-    print(type(idx[0][0]))
     d.sort()
-    print(type(d[0][0]))
     d = d[:, 1:k+1]
-    print(type(d[0][0]))
     return d, idx
 
 
@@ -68,25 +62,32 @@ def adjacency(dist, idx):
     assert dist.min() >= 0
 
     # Weights.
-    sigma2 = np.mean(dist[:, -1])**2
-    dist = np.exp(- dist**2 / sigma2)
+    sigma2 = (np.mean(dist[:, -1])**2).astype(np.float16)
+    print(type(sigma2[0][0]))
+    dist = np.exp(- dist**2 / sigma2).astype(np.float16)
+    print(type(dist[0][0]))
 
     # Weight matrix.
-    I = np.arange(0, M).repeat(k)
-    J = idx.reshape(M*k)
-    V = dist.reshape(M*k)
-    W = scipy.sparse.coo_matrix((V, (I, J)), shape=(M, M))
+    I = np.arange(0, M).repeat(k).astype(np.float16)
+    print(type(I[0][0]))
+    J = idx.reshape(M*k).astype(np.float16)
+    print(type(J[0][0]))
+    V = dist.reshape(M*k).astype(np.float16)
+    print(type(V[0][0]))
+    W = scipy.sparse.coo_matrix((V, (I, J)), shape=(M, M)).astype(np.float16)
+    print(type(W[0][0]))
 
     # No self-connections.
     W.setdiag(0)
 
     # Non-directed graph.
     bigger = W.T > W
-    W = W - W.multiply(bigger) + W.T.multiply(bigger)
+    W = W - W.multiply(bigger).astype(np.float16) + W.T.multiply(bigger).astype(np.float16)
 
     assert W.nnz % 2 == 0
     assert np.abs(W - W.T).mean() < 1e-10
     assert type(W) is scipy.sparse.csr.csr_matrix
+    print(type(W[0][0]))
     return W
 
 
