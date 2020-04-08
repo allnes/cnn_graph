@@ -24,7 +24,7 @@ def distance_scipy_spatial(z, k=4, metric='euclidean'):
     z = z.astype(np.float16)
     print(type(z[0][0]))
     d = scipy.spatial.distance.pdist(z, metric).astype(np.float16)
-    print(d.shape)
+    print(type(d))
     d = scipy.spatial.distance.squareform(d).astype(np.float16)
     print(type(d[0][0]))
     # k-NN graph.
