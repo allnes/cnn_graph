@@ -23,8 +23,8 @@ def distance_scipy_spatial(z, k=4, metric='euclidean'):
     """Compute exact pairwise distances."""
     z = z.astype(np.float16)
     # d = scipy.spatial.distance.pdist(z, metric, dtype=np.float16)
+    # d = scipy.spatial.distance.squareform(d)
     d = np.sqrt(((z[:, :, None] - z[:, :, None].T) ** 2).sum(1), dtype=np.float16)
-    d = scipy.spatial.distance.squareform(d)
     # k-NN graph.
     idx = np.argsort(d)[:, 1:k+1]
     d.sort()
