@@ -69,18 +69,19 @@ def adjacency(dist, idx):
     I = np.arange(0, M).repeat(k).astype(np.float16)
     J = idx.reshape(M*k).astype(np.float16)
     V = dist.reshape(M*k).astype(np.float16)
-    W = scipy.sparse.coo_matrix((V, (I, J)), shape=(M, M)).astype(np.float16)
+    W = scipy.sparse.coo_matrix((V, (I, J)), shape=(M, M))
 
     # No self-connections.
     W.setdiag(0)
 
     # Non-directed graph.
     bigger = W.T > W
-    W = W - W.multiply(bigger).astype(np.float16) + W.T.multiply(bigger).astype(np.float16)
+    W = W - W.multiply(bigger) + W.T.multiply(bigger)
 
     assert W.nnz % 2 == 0
     assert np.abs(W - W.T).mean() < 1e-10
     assert type(W) is scipy.sparse.csr.csr_matrix
+
     return W
 
 
