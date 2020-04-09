@@ -22,8 +22,8 @@ def grid(m, dtype=np.float32):
 def distance_scipy_spatial(z, k=4, metric='euclidean'):
     """Compute exact pairwise distances."""
     z = z.astype(np.float16)
-    d = scipy.spatial.distance.pdist(z, metric, dtype=float16)
-    d = scipy.spatial.distance.squareform(d, dtype=float16)
+    d = scipy.spatial.distance.pdist(z, metric, dtype=np.float16)
+    d = scipy.spatial.distance.squareform(d, dtype=np.float16)
     # k-NN graph.
     idx = np.argsort(d)[:, 1:k+1]
     d.sort()
