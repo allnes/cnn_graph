@@ -35,7 +35,7 @@ def distance_scipy_spatial(z, k=4, metric='euclidean'):
 def distance_sklearn_metrics(z, k=4, metric='euclidean'):
     """Compute exact pairwise distances."""
     d = sklearn.metrics.pairwise_distances_argmin_min(
-            z, metric=metric)
+            z, z.T, metric=metric)
     # k-NN graph.
     idx = np.argsort(d)[:, 1:k+1]
     d.sort()
