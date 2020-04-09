@@ -66,9 +66,9 @@ def adjacency(dist, idx):
     dist = np.exp(- dist**2 / sigma2).astype(np.float16)
 
     # Weight matrix.
-    I = np.arange(0, M).repeat(k).astype(np.float16)
-    J = idx.reshape(M*k).astype(np.float16)
-    V = dist.reshape(M*k).astype(np.float16)
+    I = np.arange(0, M).repeat(k)
+    J = idx.reshape(M*k)
+    V = dist.reshape(M*k)
     W = scipy.sparse.coo_matrix((V, (I, J)), shape=(M, M))
 
     # No self-connections.
