@@ -7,8 +7,12 @@ import matplotlib.pyplot as plt
 # data_dir = 'NCI'
 # data_type = 'sdf'
 ############################################################
-name_research = 'Twitter Sentiment Graph Data'
-data_dir = 'Twitter'
+# name_research = 'Twitter Sentiment Graph Data'
+# data_dir = 'Twitter'
+# data_type = 'nel'
+###########################################################
+name_research = 'DBLP Graph Datasets'
+data_dir = 'DBLP'
 data_type = 'nel'
 ###########################################################
 
@@ -40,8 +44,18 @@ with open(data_path, 'r') as reader:
         ############################################################
         if data_type is 'nel':
             pattern_vertices = r'n\s*(\d*)\s(\w*)'
-            pattern_edge = r'e\s*(\d*)\s*(\d*)\s*(\d*\.\d*)'
-            pattern_end = [r'g\s*\d*\d\s*\d*', r'x\s*\d*']
+            pattern_edge = r''
+            pattern_end = []
+            if data_dir is 'Twitter':
+                pattern_edge = r'e\s*(\d*)\s*(\d*)\s*(\d*\.\d*)'
+                pattern_end = [r'g\s*\d*\d\s*\d*', r'x\s*\d*']
+                N_v = 9
+                N_e = 0
+            if data_dir is 'DBLP':
+                pattern_edge = r'e\s*(\d*)\s*(\d*)\s*(\w*)'
+                pattern_end = [r'g\s*\w*\s*\d*', r'x\s*\d*.\d*']
+                N_v = 15
+                N_e = 15
             vertices_name = []
             edge_name = []
             for line in reader:
@@ -53,10 +67,11 @@ with open(data_path, 'r') as reader:
                 if result_edge is not None:
                     edge_name.append([result_edge.group(1), result_edge.group(2)])
                 if result_end is not None:
-                    if len(vertices_name) > 9:
+                    if len(vertices_name) > N_v and len(edge_name) > N_e:
                         gx = nx.Graph()
                         for edge in edge_name:
                             gx.add_edge(edge[0], edge[1])
+                        gx.remove_nodes_from(nx.isolates(gx))
                         list_graphs.append(gx)
                     vertices_name.clear()
                     edge_name.clear()
