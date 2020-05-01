@@ -11,8 +11,12 @@ import matplotlib.pyplot as plt
 # data_dir = 'Twitter'
 # data_type = 'nel'
 ###########################################################
-name_research = 'DBLP Graph Datasets'
-data_dir = 'DBLP'
+# name_research = 'DBLP Graph Datasets'
+# data_dir = 'DBLP'
+# data_type = 'nel'
+###########################################################
+name_research = 'Functional Brain Network Analysis Data'
+data_dir = 'fMRI'
 data_type = 'nel'
 ###########################################################
 
@@ -53,6 +57,11 @@ with open(data_path, 'r') as reader:
                 N_e = 0
             if data_dir is 'DBLP':
                 pattern_edge = r'e\s*(\d*)\s*(\d*)\s*(\w*)'
+                pattern_end = [r'g\s*\w*\s*\d*', r'x\s*\d*.\d*']
+                N_v = 15
+                N_e = 15
+            if data_dir is 'fMRI':
+                pattern_edge = r'e\s*(\d*)\s*(\d*)\s*(\d*)'
                 pattern_end = [r'g\s*\w*\s*\d*', r'x\s*\d*.\d*']
                 N_v = 15
                 N_e = 15
