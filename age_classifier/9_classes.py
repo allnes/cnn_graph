@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import cv2 as cv
 import scipy
 import sklearn
-import importlib.util
 import argparse
 
 from lib import models, graph, coarsening, utils
