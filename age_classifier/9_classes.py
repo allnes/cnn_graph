@@ -158,11 +158,11 @@ def save_dump():
     def distance_sklearn_metrics(z, k=4, metric='euclidean'):
         """Compute exact pairwise distances."""
         d = sklearn.metrics.pairwise.pairwise_distances(
-                z, metric=metric, n_jobs=-2)
+            z, metric=metric, n_jobs=-2)
         # k-NN graph.
-        idx = np.argsort(d)[:, 1:k+1]
+        idx = np.argsort(d)[:, 1:k + 1]
         d.sort()
-        d = d[:, 1:k+1]
+        d = d[:, 1:k + 1]
         return d, idx
 
     dist, idx = distance_sklearn_metrics(X_train.T, k=4, metric='euclidean')
@@ -206,17 +206,17 @@ C = y.max() + 1
 assert C == np.unique(y).size
 
 # Architecture.
-params['F'] = [64, 32, 16, 8]  # Number of graph convolutional filters.
-params['K'] = [32, 16, 8, 4]  # Polynomial orders.
-params['p'] = [4, 4, 2, 1]  # Pooling sizes.
-params['M'] = [2000, C]  # Output dimensionality of fully connected layers.
+params['F'] = [32, 64]
+params['K'] = [25, 25]
+params['p'] = [4, 4]
+params['M'] = [512, C]
 
 # Optimization.
 params['regularization'] = 5e-4
-params['dropout'] = 1
-params['learning_rate'] = 0.001
+params['dropout'] = 0.5
+params['learning_rate'] = 0.02  # 0.03 in the paper but sgconv_sgconv_fc_softmax has difficulty to converge
 params['decay_rate'] = 0.95
-params['momentum'] = 0
+params['momentum'] = 0.9
 params['decay_steps'] = n_train / params['batch_size']
 
 model = models.cgcnn(L, **params)
