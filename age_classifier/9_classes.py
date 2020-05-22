@@ -11,7 +11,7 @@ from lib import models, graph, coarsening, utils
 parser = argparse.ArgumentParser()
 parser.add_argument("--path_project")
 parser.add_argument("--zip_size")
-parser.add_argument("--flag_save_zip", type=bool)
+parser.add_argument("--flag_save_zip", type=bool, default=False)
 args = parser.parse_args()
 
 PATH_PROJECT = args.path_project
