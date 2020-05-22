@@ -172,7 +172,7 @@ def save_dump():
     scipy.sparse.save_npz(PATH_DUMP_DATA, A)
 
 
-save_dump()
+# save_dump()
 PATH_DUMP_LOAD_DATA = PATH_PROJECT + 'DATA/dump.npz'
 A = scipy.sparse.load_npz(PATH_DUMP_LOAD_DATA)
 
@@ -180,7 +180,7 @@ print('d = |V| = {}, k|V| < |E| = {}'.format(zip_size, A.nnz))
 plt.spy(A, markersize=2, color='black')
 
 print('--> Get laplacian matrix')
-graphs, perm = coarsening.coarsen(A, levels=3, self_connections=True)
+graphs, perm = coarsening.coarsen(A, levels=4, self_connections=True)
 X_train = coarsening.perm_data(X_train, perm)
 print(X_train.shape)
 X_val = coarsening.perm_data(X_val, perm)
