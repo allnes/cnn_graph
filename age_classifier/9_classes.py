@@ -209,7 +209,7 @@ assert C == np.unique(y).size
 params['F'] = [16, 12, 10]  # Number of graph convolutional filters.
 params['K'] = [16, 12, 10]  # Polynomial orders.
 params['p'] = [2, 2, 2]  # Pooling sizes.
-params['M'] = [2000, C]  # Output dimensionality of fully connected layers.
+params['M'] = [1000, C]  # Output dimensionality of fully connected layers.
 
 # Optimization.
 params['regularization'] = 5e-4
