@@ -4,14 +4,33 @@ import matplotlib.pyplot as plt
 import cv2 as cv
 import scipy
 import sklearn
-from lib import models, graph, coarsening, utils
+import importlib.util
 import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--path_project")
+parser.add_argument("--path_cnn_lib")
 parser.add_argument("--zip_size")
 parser.add_argument("--flag_save_zip")
 args = parser.parse_args()
+
+PATH_CNN_LIB=args.path_cnn_lib
+
+spec_models = importlib.util.spec_from_file_location("lib.models", PATH_CNN_LIB + "lib/models.py")
+models = importlib.util.module_from_spec(spec_models)
+spec_models.loader.exec_module(models)
+
+spec_graph = importlib.util.spec_from_file_location("lib.graph", PATH_CNN_LIB + "lib/graph.py")
+graph = importlib.util.module_from_spec(spec_graph)
+spec_graph.loader.exec_module(graph)
+
+spec_coarsening = importlib.util.spec_from_file_location("lib.coarsening", PATH_CNN_LIB + "lib/coarsening.py")
+coarsening = importlib.util.module_from_spec(spec_coarsening)
+spec_coarsening.loader.exec_module(coarsening)
+
+spec_utils = importlib.util.spec_from_file_location("lib.utils", PATH_CNN_LIB + "lib/utils.py")
+utils = importlib.util.module_from_spec(spec_utils)
+spec_utils.loader.exec_module(utils)
 
 PATH_PROJECT = args.path_project
 zip_size = int(args.zip_size)
