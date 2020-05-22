@@ -13,3 +13,7 @@ summaries/
 
 # Model parameters
 checkpoints/
+
+.idea/
+
+venv_gcnn/
