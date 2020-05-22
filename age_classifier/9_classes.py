@@ -193,7 +193,7 @@ params = dict()
 params['dir_name'] = 'demo'
 params['num_epochs'] = 32
 params['batch_size'] = 16
-params['eval_frequency'] = 100
+params['eval_frequency'] = 200
 
 # Building blocks.
 params['filter'] = 'chebyshev5'
