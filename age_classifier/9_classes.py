@@ -208,8 +208,8 @@ assert C == np.unique(y).size
 # Architecture.
 params['F'] = [64, 32, 16, 8]  # Number of graph convolutional filters.
 params['K'] = [32, 16, 8, 4]  # Polynomial orders.
-params['p'] = [2, 2, 2, 1]  # Pooling sizes.
-params['M'] = [1000, C]  # Output dimensionality of fully connected layers.
+params['p'] = [4, 4, 2, 1]  # Pooling sizes.
+params['M'] = [2000, C]  # Output dimensionality of fully connected layers.
 
 # Optimization.
 params['regularization'] = 5e-4
