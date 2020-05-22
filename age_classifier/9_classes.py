@@ -172,7 +172,7 @@ def save_dump():
     scipy.sparse.save_npz(PATH_DUMP_DATA, A)
 
 
-# save_dump()
+save_dump()
 PATH_DUMP_LOAD_DATA = PATH_PROJECT + 'DATA/dump.npz'
 A = scipy.sparse.load_npz(PATH_DUMP_LOAD_DATA)
 
