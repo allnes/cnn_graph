@@ -199,7 +199,7 @@ params['eval_frequency'] = 200
 # Building blocks.
 params['filter'] = 'chebyshev5'
 params['brelu'] = 'b1relu'
-params['pool'] = 'apool1'
+params['pool'] = 'mpool1'
 
 # Number of classes.
 C = y.max() + 1
