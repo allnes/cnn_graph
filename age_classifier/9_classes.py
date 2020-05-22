@@ -11,7 +11,7 @@ from lib import models, graph, coarsening, utils
 parser = argparse.ArgumentParser()
 parser.add_argument("--path_project")
 parser.add_argument("--zip_size")
-parser.add_argument("--flag_save_zip")
+parser.add_argument("--flag_save_zip", type=bool)
 args = parser.parse_args()
 
 PATH_PROJECT = args.path_project
@@ -105,6 +105,7 @@ def save_zip(save_size):
 
 
 if flag_save_zip:
+    print('Start save zip graph matrix')
     save_zip(zip_size)
 
 PATH_CONVERTED_DATA = PATH_PROJECT + 'DATA/converted_data_resize_' + str(zip_size) + '.npz'
@@ -171,7 +172,7 @@ def save_dump():
     scipy.sparse.save_npz(PATH_DUMP_DATA, A)
 
 
-save_dump()
+# save_dump()
 PATH_DUMP_LOAD_DATA = PATH_PROJECT + 'DATA/dump.npz'
 A = scipy.sparse.load_npz(PATH_DUMP_LOAD_DATA)
 
@@ -179,7 +180,7 @@ print('d = |V| = {}, k|V| < |E| = {}'.format(zip_size, A.nnz))
 plt.spy(A, markersize=2, color='black')
 
 print('--> Get laplacian matrix')
-graphs, perm = coarsening.coarsen(A, levels=3, self_connections=True)
+graphs, perm = coarsening.coarsen(A, levels=4, self_connections=True)
 X_train = coarsening.perm_data(X_train, perm)
 print(X_train.shape)
 X_val = coarsening.perm_data(X_val, perm)
@@ -198,26 +199,24 @@ params['eval_frequency'] = 200
 # Building blocks.
 params['filter'] = 'chebyshev5'
 params['brelu'] = 'b1relu'
-params['brelu'] = 'b2relu'
 params['pool'] = 'apool1'
-params['pool'] = 'mpool1'
 
 # Number of classes.
 C = y.max() + 1
 assert C == np.unique(y).size
 
 # Architecture.
-params['F'] = [32, 32]  # Number of graph convolutional filters.
-params['K'] = [16, 16]  # Polynomial orders.
-params['p'] = [4, 2]  # Pooling sizes.
+params['F'] = [16, 12, 10]  # Number of graph convolutional filters.
+params['K'] = [16, 12, 10]  # Polynomial orders.
+params['p'] = [2, 2, 2]  # Pooling sizes.
 params['M'] = [2000, C]  # Output dimensionality of fully connected layers.
 
 # Optimization.
 params['regularization'] = 5e-4
-params['dropout'] = 1
-params['learning_rate'] = 1e-3
-params['decay_rate'] = 0.95
-params['momentum'] = 0
+params['dropout'] = 0.9
+params['learning_rate'] = 0.1
+params['decay_rate'] = 0.75
+params['momentum'] = 0.05
 params['decay_steps'] = n_train / params['batch_size']
 
 model = models.cgcnn(L, **params)
