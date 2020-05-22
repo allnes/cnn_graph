@@ -180,7 +180,7 @@ print('d = |V| = {}, k|V| < |E| = {}'.format(zip_size, A.nnz))
 plt.spy(A, markersize=2, color='black')
 
 print('--> Get laplacian matrix')
-graphs, perm = coarsening.coarsen(A, levels=4, self_connections=True)
+graphs, perm = coarsening.coarsen(A, levels=5, self_connections=True)
 X_train = coarsening.perm_data(X_train, perm)
 print(X_train.shape)
 X_val = coarsening.perm_data(X_val, perm)
@@ -206,17 +206,17 @@ C = y.max() + 1
 assert C == np.unique(y).size
 
 # Architecture.
-params['F'] = [16, 12, 10]  # Number of graph convolutional filters.
-params['K'] = [16, 12, 10]  # Polynomial orders.
-params['p'] = [2, 2, 2]  # Pooling sizes.
-params['M'] = [1000, C]  # Output dimensionality of fully connected layers.
+params['F'] = [16, 12, 8, 4]  # Number of graph convolutional filters.
+params['K'] = [16, 12, 8, 4]  # Polynomial orders.
+params['p'] = [2, 2, 2, 1]  # Pooling sizes.
+params['M'] = [2000, C]  # Output dimensionality of fully connected layers.
 
 # Optimization.
 params['regularization'] = 5e-4
-params['dropout'] = 0.9
-params['learning_rate'] = 0.1
-params['decay_rate'] = 0.75
-params['momentum'] = 0.05
+params['dropout'] = 1
+params['learning_rate'] = 0.001
+params['decay_rate'] = 0.95
+params['momentum'] = 0
 params['decay_steps'] = n_train / params['batch_size']
 
 model = models.cgcnn(L, **params)
