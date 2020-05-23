@@ -180,7 +180,7 @@ print('d = |V| = {}, k|V| < |E| = {}'.format(zip_size, A.nnz))
 plt.spy(A, markersize=2, color='black')
 
 print('--> Get laplacian matrix')
-graphs, perm = coarsening.coarsen(A, levels=4, self_connections=True)
+graphs, perm = coarsening.coarsen(A, levels=5, self_connections=True)
 X_train = coarsening.perm_data(X_train, perm)
 print(X_train.shape)
 X_val = coarsening.perm_data(X_val, perm)
@@ -206,10 +206,10 @@ C = y.max() + 1
 assert C == np.unique(y).size
 
 # Architecture.
-params['F'] = [16, 32]
-params['K'] = [25, 25]
-params['p'] = [4, 4]
-params['M'] = [2048, C]
+params['F'] = [16, 48, 64, 64, 48]
+params['K'] = [18, 9, 4, 4, 4]
+params['p'] = [2, 2, 2, 2, 2]
+params['M'] = [1024, 1024, C]
 
 # Optimization.
 params['regularization'] = 5e-4
