@@ -255,5 +255,6 @@ for id_class in np.unique(y):
     print(acc_shape)
     print(model.evaluate(acc_per_class[id_class], labels)[0])
 
+print("############ All")
 res = model.evaluate(X_test, y_test)
 print(res[0])
