@@ -209,7 +209,7 @@ assert C == np.unique(y).size
 params['F'] = [32, 64]
 params['K'] = [25, 25]
 params['p'] = [4, 4]
-params['M'] = [512, C]
+params['M'] = [2048, C]
 
 # Optimization.
 params['regularization'] = 5e-4
