@@ -206,7 +206,7 @@ C = y.max() + 1
 assert C == np.unique(y).size
 
 # Architecture.
-params['F'] = [32, 64]
+params['F'] = [16, 32]
 params['K'] = [25, 25]
 params['p'] = [4, 4]
 params['M'] = [2048, C]
