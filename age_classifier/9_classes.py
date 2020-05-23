@@ -117,6 +117,9 @@ y = npzfile['arr_1']
 print(X.shape)
 print(y.shape)
 
+
+from sklearn.utils import shuffle
+X, y = shuffle(X, y)
 ##########################################################
 
 print('--> Reshape data')
@@ -141,12 +144,15 @@ y_test = y[n_train + n_val:]
 
 plt.title("y = {}".format(y.shape[0]))
 plt.hist(y, len(np.unique(y)))
+plt.show()
 
 plt.title("y_train = {}".format(y_train.shape[0]))
 plt.hist(y_train, len(np.unique(y_train)))
+plt.show()
 
 plt.title("y_test = {}".format(y_test.shape[0]))
 plt.hist(y_test, len(np.unique(y_test)))
+plt.show()
 
 print(np.unique(y))
 
@@ -192,8 +198,8 @@ L = [graph.laplacian(A, normalized=True) for A in graphs]
 
 params = dict()
 params['dir_name'] = 'demo'
-params['num_epochs'] = 32
-params['batch_size'] = 16
+params['num_epochs'] = 64
+params['batch_size'] = 32
 params['eval_frequency'] = 200
 
 # Building blocks.
@@ -207,9 +213,9 @@ assert C == np.unique(y).size
 
 # Architecture.
 params['F'] = [16, 24, 32, 24]
-params['K'] = [18, 9, 6, 6]
-params['p'] = [4, 2, 2, 2]
-params['M'] = [1024, 1024, C]
+params['K'] = [9, 9, 9, 9]
+params['p'] = [4, 4, 2, 1]
+params['M'] = [1024, 512, C]
 
 # Optimization.
 params['regularization'] = 5e-4
