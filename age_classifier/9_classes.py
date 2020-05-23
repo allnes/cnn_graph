@@ -212,15 +212,15 @@ C = y.max() + 1
 assert C == np.unique(y).size
 
 # Architecture.
-params['F'] = [16, 24, 32, 24]
-params['K'] = [9, 9, 9, 9]
+params['F'] = [16, 32, 48, 64]
+params['K'] = [9, 9, 9, 9, 9]
 params['p'] = [4, 4, 2, 1]
 params['M'] = [1024, 512, C]
 
 # Optimization.
 params['regularization'] = 5e-4
 params['dropout'] = 0.5
-params['learning_rate'] = 0.001
+params['learning_rate'] = 0.005
 params['decay_rate'] = 0.95
 params['momentum'] = 0.9
 params['decay_steps'] = n_train / params['batch_size']
