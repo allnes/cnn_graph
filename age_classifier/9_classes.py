@@ -212,9 +212,9 @@ C = y.max() + 1
 assert C == np.unique(y).size
 
 # Architecture.
-params['F'] = [16, 32, 48, 64]
-params['K'] = [9, 9, 9, 9, 9]
-params['p'] = [4, 4, 2, 1]
+params['F'] = [16, 32, 64, 32]
+params['K'] = [9, 9, 9, 9]
+params['p'] = [4, 2, 2, 2]
 params['M'] = [1024, 512, C]
 
 # Optimization.
