@@ -214,7 +214,7 @@ assert C == np.unique(y).size
 
 # Architecture.
 params['F'] = [9, 18, 36, 18, 9]
-params['K'] = [6, 12, 18, 12, 6]
+params['K'] = [18, 12, 6, 12, 18]
 params['p'] = [4, 2, 2, 2, 1]
 params['M'] = [1024, 512, 256, C]
 
