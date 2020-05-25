@@ -178,7 +178,7 @@ def save_dump():
     scipy.sparse.save_npz(PATH_DUMP_DATA, A)
 
 
-save_dump()
+# save_dump()
 PATH_DUMP_LOAD_DATA = PATH_PROJECT + 'DATA/dump.npz'
 A = scipy.sparse.load_npz(PATH_DUMP_LOAD_DATA)
 
@@ -187,7 +187,7 @@ plt.spy(A, markersize=2, color='black')
 plt.show()
 
 print('--> Get laplacian matrix')
-graphs, perm = coarsening.coarsen(A, levels=3, self_connections=True)
+graphs, perm = coarsening.coarsen(A, levels=5, self_connections=True)
 X_train = coarsening.perm_data(X_train, perm)
 print(X_train.shape)
 X_val = coarsening.perm_data(X_val, perm)
@@ -219,10 +219,10 @@ assert C == np.unique(y).size
 # params['M'] = [1024, C]
 # Architecture.
 
-params['F'] = [16, 16]  # Number of graph convolutional filters.
-params['K'] = [16, 16]  # Polynomial orders.
-params['p'] = [4, 2]  # Pooling sizes.
-params['M'] = [2048, C]
+params['F'] = [16, 32, 32, 16]  # Number of graph convolutional filters.
+params['K'] = [16, 32, 32, 16]  # Polynomial orders.
+params['p'] = [2, 2, 2, 4]  # Pooling sizes.
+params['M'] = [1024, C]
 
 # Optimization.
 params['regularization'] = 5e-4
