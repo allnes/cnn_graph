@@ -130,13 +130,13 @@ X_train = X[:n_train]
 X_val = X[n_train:n_train + n_val]
 X_test = X[n_train + n_val:]
 
-y = y // 10 - 1
+# y = y // 10 - 1
 # y = y // 13 - 1
 # y = y // 17
 # y = y // 20
 # y = y // 25
 # y = y // 33
-# y = y // 50
+y = y // 50
 
 y_train = y[:n_train]
 y_val = y[n_train:n_train + n_val]
