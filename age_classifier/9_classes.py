@@ -184,6 +184,7 @@ A = scipy.sparse.load_npz(PATH_DUMP_LOAD_DATA)
 
 print('d = |V| = {}, k|V| < |E| = {}'.format(zip_size, A.nnz))
 plt.spy(A, markersize=2, color='black')
+plt.show()
 
 print('--> Get laplacian matrix')
 graphs, perm = coarsening.coarsen(A, levels=5, self_connections=True)
