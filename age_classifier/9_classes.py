@@ -200,7 +200,7 @@ L = [graph.laplacian(A, normalized=True) for A in graphs]
 params = dict()
 params['dir_name'] = 'demo'
 params['num_epochs'] = 128
-params['batch_size'] = 64
+params['batch_size'] = 48
 params['eval_frequency'] = 300
 
 # Building blocks.
@@ -213,9 +213,9 @@ C = y.max() + 1
 assert C == np.unique(y).size
 
 # Architecture.
-params['F'] = [16, 32, 64, 32, 16]
+params['F'] = [16, 32, 48, 32, 16]
 params['K'] = [6, 12, 18, 12, 6]
-params['p'] = [2, 2, 2, 2, 2]
+params['p'] = [4, 2, 2, 2, 1]
 params['M'] = [1024, 512, C]
 
 # Optimization.
