@@ -219,7 +219,7 @@ assert C == np.unique(y).size
 # params['M'] = [1024, C]
 # Architecture.
 
-params['F'] = [32, 32]  # Number of graph convolutional filters.
+params['F'] = [16, 16]  # Number of graph convolutional filters.
 params['K'] = [16, 16]  # Polynomial orders.
 params['p'] = [4, 2]  # Pooling sizes.
 params['M'] = [2048, C]
