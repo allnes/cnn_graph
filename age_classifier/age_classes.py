@@ -178,7 +178,7 @@ def save_dump():
     scipy.sparse.save_npz(PATH_DUMP_DATA, A)
 
 
-save_dump()
+# save_dump()
 PATH_DUMP_LOAD_DATA = PATH_PROJECT + 'DATA/dump.npz'
 A = scipy.sparse.load_npz(PATH_DUMP_LOAD_DATA)
 
@@ -219,7 +219,7 @@ assert C == np.unique(y).size
 # params['M'] = [1024, C]
 # Architecture.
 
-params['F'] = [32, 64]  # Number of graph convolutional filters.
+params['F'] = [32, 32]  # Number of graph convolutional filters.
 params['K'] = [16, 16]  # Polynomial orders.
 params['p'] = [4, 2]  # Pooling sizes.
 params['M'] = [2048, C]  # Output dimensionality of fully connected layers.
