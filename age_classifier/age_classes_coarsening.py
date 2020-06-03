@@ -110,7 +110,7 @@ if flag_save_zip:
     print('Start save zip graph matrix')
     save_zip(zip_size)
 
-PATH_CONVERTED_DATA = PATH_PROJECT + PATH_DATA
+PATH_CONVERTED_DATA = PATH_PROJECT + 'DATA/' + PATH_DATA
 
 npzfile = np.load(PATH_CONVERTED_DATA)
 print(npzfile.files)
