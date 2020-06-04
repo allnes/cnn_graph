@@ -121,8 +121,24 @@ y = npzfile['arr_1']
 print(X.shape)
 print(y.shape)
 
-from sklearn.utils import shuffle
 
+def add_pad(X_full, zip_sz):
+    X = []
+    for graph in X_full:
+        graph_size = int(math.sqrt(graph.shape[0]))
+        new_graph = np.copy(graph).reshape(graph_size, graph_size)
+        new_graph = np.pad(new_graph, pad_width=3, mode='constant', constant_values=0)
+        X.append(cv.resize(new_graph,
+                           dsize=(zip_sz, zip_sz),
+                           interpolation=cv.INTER_CUBIC))
+    X = np.array(X)
+    X = X.reshape((X.shape[0], X.shape[1] * X.shape[2]))
+    return X
+
+
+# X = add_pad(X, zip_size)
+
+from sklearn.utils import shuffle
 X, y = shuffle(X, y)
 ##########################################################
 
