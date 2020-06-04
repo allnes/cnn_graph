@@ -135,7 +135,7 @@ def add_pad(X_full, zip_sz):
     return X
 
 
-X = add_pad(X, zip_size)
+# X = add_pad(X, zip_size)
 
 from sklearn.utils import shuffle
 X, y = shuffle(X, y)
